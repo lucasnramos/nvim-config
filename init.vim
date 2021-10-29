@@ -10,6 +10,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Themes
 Plug 'dracula/vim'
@@ -64,8 +65,9 @@ filetype indent plugin on
 autocmd InsertEnter * norm zz
 autocmd BufWritePost $MYVIMRC so $MYVIMRC
 autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
 
 " ====================
 " Custom keybidings
@@ -103,6 +105,10 @@ vnoremap <leader>Y "*Y
 vnoremap <leader>y "*y
 vnoremap > >gv
 
+" Netrw - file explorer
+nnoremap <leader>ex :Ex<CR>
+nnoremap <leader>sex :Sex<CR>
+
 " Auto close brackets in insert mode
 " inoremap "" ""<left>
 " inoremap '' ''<left>
@@ -115,22 +121,6 @@ vnoremap > >gv
 " ====================
 " Plugin keybidings
 " ====================
-
-" fugitive
-nnoremap <leader>gg :Git<space>
-nnoremap <leader>gs :Git<CR>
-nnoremap <leader>gpp :Git push<space>
-nnoremap <leader>gpu :Git push -u origin<space>
-nnoremap <leader>gpl :Git pull<space>
-nnoremap <leader>gco :Git checkout<space>
-nnoremap <leader>gft :Git fetch<CR>
-
-" Airline
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-" let g:airline_section_y = ''
-let g:airline_section_z = ''
-
 " Telescope
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>Telescope find_files<cr>
@@ -145,6 +135,25 @@ nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+
+" fugitive
+nnoremap <leader>gg :Git<space>
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gpp :Git push<space>
+nnoremap <leader>gpu :Git push -u origin<space>
+nnoremap <leader>gpl :Git pull<space>
+nnoremap <leader>gco :Git checkout<space>
+nnoremap <leader>gft :Git fetch<CR>
+
+" =========================
+" Plugin Configurations
+" =========================
+" Airline
+let g:airline_section_c = '%t'
+let g:airline_section_x = ''
+let g:airline_section_y = ''
+let g:airline_section_z = ''
+
 " ================================
 " Lua
 " ================================

@@ -11,6 +11,13 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
 
+" cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
 " Themes
 Plug 'dracula/vim'
 Plug 'gruvbox-community/gruvbox'
@@ -64,8 +71,9 @@ filetype indent plugin on
 autocmd InsertEnter * norm zz
 autocmd BufWritePost $MYVIMRC so $MYVIMRC
 autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
 
 " ====================
 " Custom keybidings
@@ -102,6 +110,9 @@ vnoremap < <gv
 vnoremap <leader>Y "*Y
 vnoremap <leader>y "*y
 vnoremap > >gv
+
+nnoremap <leader>ee :Ex<CR>
+nnoremap <leader>see :Sex<CR>
 
 " Auto close brackets in insert mode
 " inoremap "" ""<left>
@@ -145,10 +156,12 @@ nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+
 " ================================
 " Lua
 " ================================
 lua << EOF
+
 require("telescope").setup {
   defaults = {
     path_display = { "smart" }
@@ -173,6 +186,29 @@ require("telescope").setup {
     }
   }
 }
+
+ -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    -- snippet = { },
+    mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
 
 -- LSP Config
 require'lspconfig'.tsserver.setup{}

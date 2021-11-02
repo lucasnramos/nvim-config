@@ -10,6 +10,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -111,8 +112,11 @@ vnoremap <leader>Y "*Y
 vnoremap <leader>y "*y
 vnoremap > >gv
 
+" Netrw - file explorer
 nnoremap <leader>ee :Ex<CR>
 nnoremap <leader>see :Sex<CR>
+nnoremap <leader>ex :Ex<CR>
+nnoremap <leader>sex :Sex<CR>
 
 " Auto close brackets in insert mode
 " inoremap "" ""<left>
@@ -126,6 +130,20 @@ nnoremap <leader>see :Sex<CR>
 " ====================
 " Plugin keybidings
 " ====================
+" Telescope
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope git_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" LSP
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 
 " fugitive
 nnoremap <leader>gg :Git<space>
@@ -136,10 +154,13 @@ nnoremap <leader>gpl :Git pull<space>
 nnoremap <leader>gco :Git checkout<space>
 nnoremap <leader>gft :Git fetch<CR>
 
+" =========================
+" Plugin Configurations
+" =========================
 " Airline
 let g:airline_section_c = '%t'
 let g:airline_section_x = ''
-" let g:airline_section_y = ''
+let g:airline_section_y = ''
 let g:airline_section_z = ''
 
 " Telescope

@@ -196,7 +196,7 @@ let g:airline_section_z = ''
 " COC
 " ================================
 autocmd FileType json syntax match Comment +\/\/.\+$+
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver', 'coc-angular', 'coc-pairs']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver', 'coc-angular', 'coc-pairs' ]
 
 if has('nvim')
   inoremap <silent><expr> <c-n> coc#refresh()

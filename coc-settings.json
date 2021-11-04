@@ -1,3 +1,4 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javscript", "html"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javscript", "html", "json"],
+  "coc.preferences.enableMessageDialog": true
 }

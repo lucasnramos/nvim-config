@@ -18,6 +18,13 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
+" cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
 " Themes
 Plug 'dracula/vim'
 Plug 'gruvbox-community/gruvbox'
@@ -112,6 +119,8 @@ vnoremap <leader>y "*y
 vnoremap > >gv
 
 " Netrw - file explorer
+nnoremap <leader>ee :Ex<CR>
+nnoremap <leader>see :Sex<CR>
 nnoremap <leader>ex :Ex<CR>
 nnoremap <leader>sex :Sex<CR>
 
@@ -160,10 +169,26 @@ let g:airline_section_x = ''
 let g:airline_section_y = ''
 let g:airline_section_z = ''
 
+" Telescope
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope git_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" LSP
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+
 " ================================
 " Lua
 " ================================
 lua << EOF
+
 require("telescope").setup {
   defaults = {
     path_display = { "smart" }
@@ -188,6 +213,29 @@ require("telescope").setup {
     }
   }
 }
+
+ -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    -- snippet = { },
+    mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
 
 -- LSP Config
 require'lspconfig'.tsserver.setup{}

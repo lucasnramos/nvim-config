@@ -1,4 +1,3 @@
-
 " List of plugins
 call plug#begin()
 Plug 'vim-airline/vim-airline'
@@ -9,8 +8,15 @@ Plug 'sheerun/vim-polyglot'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+" for LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " Themes
 Plug 'dracula/vim'
@@ -31,7 +37,6 @@ set t_vb=                            " Disable all visual blink or bell
 set hidden                           " Opening a new file on current buffer, hides the previous one instead of closing (keep changes)
 set wildmenu                         " Improved completion on command line mode
 set smartcase                        " case insensitive search, unless Case is used
-set ignorecase
 set confirm                          " confirm closing files / buffers with unsaved changes
 set visualbell                       " visual feedback instead of beep sound
 set mouse=a                          " Enable mouse support on different modes, 'a' for all modes
@@ -74,8 +79,9 @@ autocmd BufWritePost *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
 " ====================
 :let mapleader=" "
 :nmap ç :
-:nnoremap ; :
 :vmap ç :
+:xmap ç :
+:nnoremap ; :
 :vnoremap ; :
 :tnoremap <Esc> <C-\><C-n>
 inoremap fj <ESC>
@@ -185,5 +191,45 @@ require("telescope").setup {
 
 -- LSP Config
 require'lspconfig'.tsserver.setup{}
+require'lspconfig'.angularls.setup{}
+
+ -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {},
+    mapping = {
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/`.
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':'.
+  -- cmp.setup.cmdline(':', {
+  --   sources = cmp.config.sources({
+  --     { name = 'path' }
+  --   }, {
+  --     { name = 'cmdline' }
+  --   })
+  -- })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
+  }
 EOF
 

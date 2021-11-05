@@ -1,11 +1,12 @@
 " List of plugins
+" vim-plug
 call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Neovim Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -22,7 +23,7 @@ Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 set background=dark
-colo codedark
+colo onedark
 
 " Initial sets
 set nocompatible
@@ -205,6 +206,8 @@ if has('nvim')
   nnoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-n> coc#refresh()
+  nnoremap <silent><expr> <c-n> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to

@@ -1,10 +1,3 @@
-" List of plugins
-" call plug#begin()
-" Plug 'vim-airline/vim-airline'
-" Plug 'tpope/vim-surround'
-" call plug#end()
-
-" Autocmds
 autocmd InsertEnter * norm zz
 :let mapleader=" "
 :nmap ç :

@@ -11,7 +11,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Themes
 Plug 'dracula/vim'
@@ -22,7 +22,7 @@ Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 set background=dark
-colo codedark
+colo onedark
 
 " Initial sets
 set nocompatible
@@ -88,8 +88,6 @@ inoremap <S-Insert> <C-R>*
 imap jj <ESC>
 imap jk <ESC>
 imap fj <ESC>
-nnoremap <leader>ex :Ex<CR>
-nnoremap <leader>sex :Sex<CR>
 
 " Auto close brackets in insert mode
 " inoremap "" ""<left>
@@ -150,7 +148,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 lua << EOF
 require("telescope").setup {
   defaults = {
-    path_display = { "tail" }
+    path_display = { "smart" }
   },
   extensions = {
     fzf = {
@@ -197,6 +195,7 @@ let g:airline_section_z = ''
 " ================================
 autocmd FileType json syntax match Comment +\/\/.\+$+
 let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver', 'coc-angular', 'coc-pairs']
+:nmap <leader>e <Cmd>CocCommand explorer<CR>
 
 if has('nvim')
   inoremap <silent><expr> <c-n> coc#refresh()

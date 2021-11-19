@@ -1,6 +1,0 @@
-{
-  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javscript", "html", "json"],
-  "coc.preferences.enableMessageDialog": true,
-  "git.enableGlobalStatus": false,
-  "angular.experimental-ivy": false
-}

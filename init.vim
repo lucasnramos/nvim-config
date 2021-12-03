@@ -4,14 +4,28 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 
 " Neovim Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+" cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " Themes
 Plug 'dracula/vim'
@@ -32,7 +46,6 @@ set t_vb=                            " Disable all visual blink or bell
 set hidden                           " Opening a new file on current buffer, hides the previous one instead of closing (keep changes)
 set wildmenu                         " Improved completion on command line mode
 set smartcase                        " case insensitive search, unless Case is used
-set ignorecase
 set confirm                          " confirm closing files / buffers with unsaved changes
 set visualbell                       " visual feedback instead of beep sound
 set mouse=a                          " Enable mouse support on different modes, 'a' for all modes
@@ -65,29 +78,53 @@ filetype indent plugin on
 " Autocmds
 autocmd InsertEnter * norm zz
 autocmd BufWritePost $MYVIMRC so $MYVIMRC
+autocmd BufWritePost *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePost *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
 
 " ====================
 " Custom keybidings
 " ====================
 :let mapleader=" "
 :nmap ç :
-:nnoremap ; :
 :vmap ç :
+:xmap ç :
+:nnoremap ; :
 :vnoremap ; :
-nnoremap <leader>rco :tabnew $MYVIMRC<CR>
-nnoremap <leader>rcr :so $MYVIMRC<CR>
+:tnoremap <Esc> <C-\><C-n>
+inoremap fj <ESC>
+inoremap jj <ESC>
+inoremap jk <ESC>
+inoremap <S-Insert> <C-R>*
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <leader>Notes :cd ~\\Projects\\notes<CR>
+nnoremap <leader>PHN :cd ~\\Projects\\phoenix-spa\\src\\app<CR>
+nnoremap <leader>Y "*Y
+nnoremap <leader>bda :bufdo bd
 nnoremap <leader>grco :tabnew ~\AppData\Local\nvim\ginit.vim<CR>
 nnoremap <leader>grcr :so $MYVIMRC<CR>
-vnoremap > >gv
-vnoremap < <gv
+nnoremap <leader>pwr :tabnew term://powershell<CR>
+nnoremap <leader>rco :tabnew $MYVIMRC<CR>
+nnoremap <leader>rcr :so $MYVIMRC<CR>
 nnoremap <leader>y "*y
-nnoremap <leader>Y "*Y
-vnoremap <leader>y "*y
+noremap <silent> <C-Down> :resize -5<CR>
+noremap <silent> <C-Left> :vertical resize +5<CR>
+noremap <silent> <C-Right> :vertical resize -5<CR>
+noremap <silent> <C-Up> :resize +5<CR>
+vnoremap < <gv
 vnoremap <leader>Y "*Y
-inoremap <S-Insert> <C-R>*
-imap jj <ESC>
-imap jk <ESC>
-imap fj <ESC>
+vnoremap <leader>y "*y
+vnoremap > >gv
+
+" Netrw - file explorer
+nnoremap <leader>ee :Ex<CR>
+nnoremap <leader>see :Sex<CR>
+nnoremap <leader>ex :Ex<CR>
+nnoremap <leader>sex :Sex<CR>
 
 " Auto close brackets in insert mode
 " inoremap "" ""<left>
@@ -98,33 +135,23 @@ imap fj <ESC>
 " inoremap {<CR> {<CR>}<ESC>O
 " inoremap {;<CR> {<CR>};<ESC>O
 
-" Splits
-" Navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Resize
-noremap <silent> <C-Left> :vertical resize +5<CR>
-noremap <silent> <C-Right> :vertical resize -5<CR>
-noremap <silent> <C-Up> :resize +5<CR>
-noremap <silent> <C-Down> :resize -5<CR>
-
-" Buffers
-nnoremap <leader>bda :bufdo bd
-
-" Project navigation
-nnoremap <leader>PHN :cd ~\\Projects\\phoenix-spa\\src\\app<CR>
-nnoremap <leader>Notes :cd ~\\Projects\\notes<CR>
-
-" nvim-terminal
-:tnoremap <Esc> <C-\><C-n>
-nnoremap <leader>pwr :tabnew term://powershell<CR>
-
 " ====================
 " Plugin keybidings
 " ====================
+" Telescope
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope git_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" LSP
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 
 " fugitive
 nnoremap <leader>gg :Git<space>
@@ -135,9 +162,16 @@ nnoremap <leader>gpl :Git pull<space>
 nnoremap <leader>gco :Git checkout<space>
 nnoremap <leader>gft :Git fetch<CR>
 
-" ================================
+" =========================
+" Plugin Configurations
+" =========================
+" Airline
+let g:airline_section_c = '%t'
+let g:airline_section_x = ''
+let g:airline_section_y = ''
+let g:airline_section_z = ''
+
 " Telescope
-" ================================
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>ff <cmd>Telescope git_files<cr>
@@ -145,42 +179,12 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-lua << EOF
-require("telescope").setup {
-  defaults = {
-    path_display = { "smart" }
-  },
-  extensions = {
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = "smart_case",
-    }
-  },
-  pickers = {
-    buffers = {
-      show_all_buffers = true,
-      sort_lastused = false,
-      theme = "dropdown",
-      previewer = false,
-      mappings = {
-        i = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
-          -- or right hand side can also be the name of the action as string
-          ["<c-d>"] = "delete_buffer",
-        },
-        n = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
-          ["dd"] = require("telescope.actions").delete_buffer,
-        }
-      }
-    }
-  }
-}
-
-
-EOF
+" LSP
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 
 " ================================
 " Airline
@@ -286,3 +290,9 @@ nnoremap <silent><nowait> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <leader>cp  :<C-u>CocListResume<CR>
+
+" ================================
+" Lua
+" ================================
+lua << EOF
+EOF

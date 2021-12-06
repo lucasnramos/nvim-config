@@ -5,6 +5,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim'
+
 " Neovim Only
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -49,7 +51,6 @@ set clipboard+=unnamedplus           " Neovim only - use system clipboard (depen
 set cmdheight=2                      " Number of lines allocated for the command line
 set colorcolumn=80                   " Show colored column at X
 set confirm                          " confirm closing files / buffers with unsaved changes
-set cursorcolumn                     " Column highlight
 set cursorline                       " Line highlight
 set encoding=utf-8
 set expandtab                        " tabs to spaces
@@ -173,12 +174,10 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" LSP
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 
-runtime cocconfig.vim
 
+" =========================
+" Sourcing External Files
+" =========================
+runtime coc-config.vim
+" runtime lspconfig.vim

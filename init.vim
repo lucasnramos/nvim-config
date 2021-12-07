@@ -20,6 +20,7 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -157,6 +158,14 @@ nnoremap <leader>gpl :Git pull<space>
 nnoremap <leader>gco :Git checkout<space>
 nnoremap <leader>gft :Git fetch<CR>
 
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+
+command! -nargs=0 Format :lua vim.lsp.buf.formatting_sync()
+
 " =========================
 " Plugin Configurations
 " =========================
@@ -174,10 +183,10 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-
-
 " =========================
 " Sourcing External Files
 " =========================
-runtime coc-config.vim
-" runtime lspconfig.vim
+" runtime 'coc-config.vim'
+
+lua << EOF
+require("lspsetup")

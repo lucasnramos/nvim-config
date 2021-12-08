@@ -6,6 +6,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim'
+Plug 'folke/lsp-colors.nvim'
 
 " Neovim Only
 Plug 'nvim-lua/popup.nvim'
@@ -44,7 +45,7 @@ Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 set background=dark
-colo onedark
+colo gruvbox
 
 " Initial sets
 filetype indent plugin on
@@ -141,14 +142,6 @@ vnoremap > >gv
 " ====================
 " Plugin keybidings
 " ====================
-" Telescope
-" Find files using Telescope command-line sugar.
-nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope git_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
 " fugitive
 nnoremap <leader>gg :Git<space>
 nnoremap <leader>gs :Git<CR>
@@ -175,18 +168,8 @@ let g:airline_section_x = ''
 let g:airline_section_y = ''
 let g:airline_section_z = ''
 
-" Telescope
-" Find files using Telescope command-line sugar.
-nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope git_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
 " =========================
 " Sourcing External Files
 " =========================
 " runtime 'coc-config.vim'
 
-lua << EOF
-require("lspsetup")

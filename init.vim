@@ -28,6 +28,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
 
 " cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -45,7 +46,7 @@ Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 set background=dark
-colo gruvbox
+colo codedark
 
 " Initial sets
 filetype indent plugin on
@@ -150,14 +151,6 @@ nnoremap <leader>gpu :Git push -u origin<space>
 nnoremap <leader>gpl :Git pull<space>
 nnoremap <leader>gco :Git checkout<space>
 nnoremap <leader>gft :Git fetch<CR>
-
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-
-command! -nargs=0 Format :lua vim.lsp.buf.formatting_sync()
 
 " =========================
 " Plugin Configurations

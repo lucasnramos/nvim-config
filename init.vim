@@ -5,7 +5,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim'
+" Plug 'neoclide/coc.nvim'
 
 " Neovim Only
 Plug 'nvim-lua/popup.nvim'
@@ -17,7 +17,6 @@ Plug 'kyazdani42/nvim-tree.lua'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -36,7 +35,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo palenight
+colo onedark
 
 " Initial sets
 filetype indent plugin on

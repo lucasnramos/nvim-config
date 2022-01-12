@@ -12,7 +12,8 @@ vim.api.nvim_set_keymap('n', '<leader>fws', ':Telescope lsp_workspace_symbols<CR
 
 require("telescope").setup {
   defaults = {
-    path_display = { "tail" },
+    preview = false,
+    path_display = { "smart" },
     mappings = {
       i = {
         ["<esc>"] = actions.close
@@ -21,6 +22,7 @@ require("telescope").setup {
   },
   pickers = {
     buffers = {
+      path_display = {"tail"},
       show_all_buffers = true,
       sort_lastused = false,
       theme = "dropdown",

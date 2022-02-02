@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'neoclide/coc.nvim'
@@ -35,7 +36,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo onedark
+colo gruvbox
 
 " Initial sets
 filetype indent plugin on
@@ -43,7 +44,7 @@ set clipboard+=unnamedplus
 set cmdheight=2
 set colorcolumn=80
 set confirm
-" set cursorline
+set cursorline
 set encoding=utf-8
 set expandtab
 set hidden
@@ -92,20 +93,24 @@ xmap ç :
 " ====================
 inoremap <S-Insert> <C-R>*
 inoremap <S-Insert> <C-R>*
-inoremap fj <ESC>
-inoremap jj <ESC>
-inoremap jk <ESC>
+inoremap <C-o> <ESC>O
+inoremap <A-h> <left>
+inoremap <A-j> <down>
+inoremap <A-k> <up>
+inoremap <A-l> <right>
 " ====================
 " Normal Mode Remaps
 " ====================
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 nnoremap <leader>bda :bufdo bd
 nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
 nnoremap <leader>rcr :so $MYVIMRC<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bf :bprev<CR>
 noremap <silent> <C-Down> :resize -5<CR>
 noremap <silent> <C-Left> :vertical resize +5<CR>
 noremap <silent> <C-Right> :vertical resize -5<CR>
@@ -129,13 +134,8 @@ vnoremap > >gv
 " Plugin keybidings
 " ====================
 " fugitive
-nnoremap <leader>gg :Git<space>
-nnoremap <leader>gs :Git<CR>
-nnoremap <leader>gpp :Git push<space>
-nnoremap <leader>gpu :Git push -u origin<space>
-nnoremap <leader>gpl :Git pull<space>
-nnoremap <leader>gco :Git checkout<space>
-nnoremap <leader>gft :Git fetch<CR>
+nnoremap <leader>gg :G<space>
+nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd2 :diffget //2<CR>
 nnoremap <leader>gd3 :diffget //3<CR>
 

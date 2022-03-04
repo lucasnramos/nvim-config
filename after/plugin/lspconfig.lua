@@ -18,7 +18,7 @@ map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', map_opts)
 map('n', '[[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', map_opts)
 map('n', ']]', '<cmd>lua vim.diagnostic.goto_next()<CR>', map_opts)
 map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', map_opts)
-map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', map_opts)
+map('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', map_opts)
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).

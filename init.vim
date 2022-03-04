@@ -6,25 +6,32 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
-" Plug 'neoclide/coc.nvim'
+Plug 'jiangmiao/auto-pairs'
 
-" Neovim Only
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+if has("nvim")
+  " Neovim Only
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
 
-" LSP
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'folke/lsp-colors.nvim'
-Plug 'L3MON4D3/LuaSnip'
+  " LSP
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'folke/lsp-colors.nvim'
+  Plug 'L3MON4D3/LuaSnip'
+else
+  Plug 'neoclide/coc.nvim'
+endif
 
 " Themes
 Plug 'dracula/vim'
@@ -36,7 +43,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo gruvbox
+colo palenight
 
 " Initial sets
 filetype indent plugin on
@@ -105,6 +112,8 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+nnoremap <A-o> :bnext<CR>
+nnoremap <A-i> :bprevious<CR>
 nnoremap <leader>bda :bufdo bd
 nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
@@ -143,10 +152,10 @@ nnoremap <leader>gd3 :diffget //3<CR>
 " Plugin Configurations
 " =========================
 " Airline
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-let g:airline_section_y = ''
-let g:airline_section_z = ''
+" let g:airline_section_c = '%t'
+" let g:airline_section_x = ''
+" let g:airline_section_y = ''
+" let g:airline_section_z = ''
 
 
 " =========================

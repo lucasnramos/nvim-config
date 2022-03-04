@@ -12,6 +12,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -143,10 +145,10 @@ nnoremap <leader>gd3 :diffget //3<CR>
 " Plugin Configurations
 " =========================
 " Airline
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-let g:airline_section_y = ''
-let g:airline_section_z = ''
+" let g:airline_section_c = '%t'
+" let g:airline_section_x = ''
+" let g:airline_section_y = ''
+" let g:airline_section_z = ''
 
 
 " =========================

@@ -1,6 +1,5 @@
 " List of plugins vim-plug
 call plug#begin()
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -38,7 +37,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo gruvbox
+colo palenight
 
 " Initial sets
 filetype indent plugin on

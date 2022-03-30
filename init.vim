@@ -17,6 +17,7 @@ if has("nvim")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'liuchengxu/vim-which-key'
 
   " LSP
   Plug 'neovim/nvim-lspconfig'
@@ -28,6 +29,10 @@ if has("nvim")
   Plug 'hrsh7th/nvim-cmp'
   Plug 'folke/lsp-colors.nvim'
   Plug 'L3MON4D3/LuaSnip'
+  " post install (yarn install | npm install) then load plugin only for editing supported files
+  Plug 'prettier/vim-prettier', {
+        \ 'do': 'yarn install --frozen-lockfile --production',
+        \ 'for': ['javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'svelte', 'yaml', 'html'] }
 else
   Plug 'neoclide/coc.nvim'
 endif
@@ -42,7 +47,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo palenight
+colo codedark
 
 " Initial sets
 filetype indent plugin on
@@ -61,7 +66,8 @@ set nocompatible
 set noerrorbells
 set nohlsearch
 set noswapfile
-set notimeout ttimeout ttimeoutlen=0
+" set notimeout ttimeout 
+set timeoutlen=100
 set nowrap
 set nowritebackup
 set number
@@ -81,9 +87,13 @@ set visualbell
 set wildmenu
 syntax on
 
-let mapleader=" "
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 autocmd InsertEnter * norm zz
-autocmd BufWritePost $MYVIMRC so $MYVIMRC
+autocmd BufWritePost *.vim so $MYVIMRC
 
 " =========================
 " Global command Character

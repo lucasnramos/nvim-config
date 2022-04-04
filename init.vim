@@ -6,7 +6,7 @@ Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
-
+Plug 'lambdalisue/suda.vim'
 if has("nvim")
   " Neovim Only
   Plug 'nvim-lua/popup.nvim'
@@ -51,6 +51,7 @@ colo codedark
 
 " Initial sets
 filetype indent plugin on
+syntax on
 set clipboard+=unnamedplus
 set cmdheight=2
 set colorcolumn=80
@@ -85,19 +86,16 @@ set termguicolors
 set updatetime=300
 set visualbell
 set wildmenu
-syntax on
 
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
-
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 autocmd InsertEnter * norm zz
 autocmd BufWritePost *.vim so $MYVIMRC
 
 " =========================
 " Global command Character
 " =========================
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+
 nmap ç :
 nnoremap ; :
 tnoremap <Esc> <C-\><C-n>
@@ -139,15 +137,6 @@ noremap <silent> <C-Up> :resize +5<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Auto close brackets in insert mode
-" inoremap
-" inoremap '' ''<left>
-" inoremap (( ()<left>
-" inoremap [[ []<left>
-" inoremap {{ {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
-" inoremap {;<CR> {<CR>};<ESC>O
-
 " ====================
 " Plugin keybidings
 " ====================
@@ -157,18 +146,5 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd2 :diffget //2<CR>
 nnoremap <leader>gd3 :diffget //3<CR>
 
-" =========================
-" Plugin Configurations
-" =========================
-" Airline
-" let g:airline_section_c = '%t'
-" let g:airline_section_x = ''
-" let g:airline_section_y = ''
-" let g:airline_section_z = ''
-
-
-" =========================
-" Sourcing External Files
-" =========================
-" runtime 'coc-config.vim'
-
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>

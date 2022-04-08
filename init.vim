@@ -1,19 +1,46 @@
 " List of plugins vim-plug
 call plug#begin()
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
-" Plug 'neoclide/coc.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rhysd/conflict-marker.vim'
 
-" Neovim Only
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'folke/lsp-colors.nvim'
+if has("nvim")
+  " Neovim Only
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'liuchengxu/vim-which-key'
+
+  " LSP
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'folke/lsp-colors.nvim'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'rafamadriz/friendly-snippets'
+
+  " post install (yarn install | npm install) then load plugin only for editing supported files
+  Plug 'prettier/vim-prettier', {
+        \ 'do': 'yarn install --frozen-lockfile --production',
+        \ 'for': ['javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'svelte', 'yaml', 'html'] }
+else
+  Plug 'neoclide/coc.nvim'
+endif
 
 " Themes
 Plug 'dracula/vim'
@@ -25,15 +52,16 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 set background=dark
-colo onedark
+colo codedark
 
 " Initial sets
 filetype indent plugin on
+syntax on
 set clipboard+=unnamedplus
 set cmdheight=2
 set colorcolumn=80
 set confirm
-" set cursorline
+set cursorline
 set encoding=utf-8
 set expandtab
 set hidden
@@ -44,7 +72,8 @@ set nocompatible
 set noerrorbells
 set nohlsearch
 set noswapfile
-set notimeout ttimeout ttimeoutlen=0
+" set notimeout ttimeout 
+set timeoutlen=250
 set nowrap
 set nowritebackup
 set number
@@ -62,15 +91,16 @@ set termguicolors
 set updatetime=300
 set visualbell
 set wildmenu
-syntax on
 
-let mapleader=" "
 autocmd InsertEnter * norm zz
-autocmd BufWritePost $MYVIMRC so $MYVIMRC
+autocmd BufWritePost *.vim so $MYVIMRC
 
 " =========================
 " Global command Character
 " =========================
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+
 nmap ç :
 nnoremap ; :
 tnoremap <Esc> <C-\><C-n>
@@ -82,20 +112,25 @@ xmap ç :
 " ====================
 inoremap <S-Insert> <C-R>*
 inoremap <S-Insert> <C-R>*
-inoremap fj <ESC>
-inoremap jj <ESC>
-inoremap jk <ESC>
+inoremap <C-o> <ESC>O
+inoremap <A-h> <left>
+inoremap <A-j> <down>
+inoremap <A-k> <up>
+inoremap <A-l> <right>
 " ====================
 " Normal Mode Remaps
 " ====================
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <leader>bda :bufdo bd
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+nnoremap <A-o> :bnext<CR>
+nnoremap <A-i> :bprevious<CR>
 nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
 nnoremap <leader>rcr :so $MYVIMRC<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bf :bprev<CR>
 noremap <silent> <C-Down> :resize -5<CR>
 noremap <silent> <C-Left> :vertical resize +5<CR>
 noremap <silent> <C-Right> :vertical resize -5<CR>
@@ -106,41 +141,27 @@ noremap <silent> <C-Up> :resize +5<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Auto close brackets in insert mode
-" inoremap
-" inoremap '' ''<left>
-" inoremap (( ()<left>
-" inoremap [[ []<left>
-" inoremap {{ {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
-" inoremap {;<CR> {<CR>};<ESC>O
-
 " ====================
 " Plugin keybidings
 " ====================
 " fugitive
-nnoremap <leader>gg :Git<space>
-nnoremap <leader>gs :Git<CR>
-nnoremap <leader>gpp :Git push<space>
-nnoremap <leader>gpu :Git push -u origin<space>
-nnoremap <leader>gpl :Git pull<space>
-nnoremap <leader>gco :Git checkout<space>
-nnoremap <leader>gft :Git fetch<CR>
+nnoremap <leader>gg :G<space>
+nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd2 :diffget //2<CR>
 nnoremap <leader>gd3 :diffget //3<CR>
 
-" =========================
-" Plugin Configurations
-" =========================
-" Airline
-let g:airline_section_c = '%t'
-let g:airline_section_x = ''
-let g:airline_section_y = ''
-let g:airline_section_z = ''
-
-
-" =========================
-" Sourcing External Files
-" =========================
-" runtime 'coc-config.vim'
-
+" WhichKey
+"
+" " Define prefix dictionary - empty so we can add as needed
+" let g:which_key_map = {}
+" call which_key#register('<Space>', 'g:which_key_map')
+" 
+" " Second level dict
+" let g:which_key_map.t = { 'name': '+telescope' }
+" let g:which_key_map.l = { 'name': '+lsp' }
+" let g:which_key_map.g = { 'name': '+git' }
+" 
+" 
+" nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>

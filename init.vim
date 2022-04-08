@@ -6,6 +6,8 @@ Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rhysd/conflict-marker.vim'
 
 if has("nvim")
   " Neovim Only
@@ -26,9 +28,12 @@ if has("nvim")
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
+  Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'folke/lsp-colors.nvim'
   Plug 'L3MON4D3/LuaSnip'
+  Plug 'rafamadriz/friendly-snippets'
+
   " post install (yarn install | npm install) then load plugin only for editing supported files
   Plug 'prettier/vim-prettier', {
         \ 'do': 'yarn install --frozen-lockfile --production',
@@ -51,6 +56,7 @@ colo codedark
 
 " Initial sets
 filetype indent plugin on
+syntax on
 set clipboard+=unnamedplus
 set cmdheight=2
 set colorcolumn=80
@@ -67,7 +73,7 @@ set noerrorbells
 set nohlsearch
 set noswapfile
 " set notimeout ttimeout 
-set timeoutlen=100
+set timeoutlen=250
 set nowrap
 set nowritebackup
 set number
@@ -85,19 +91,16 @@ set termguicolors
 set updatetime=300
 set visualbell
 set wildmenu
-syntax on
 
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
-
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 autocmd InsertEnter * norm zz
 autocmd BufWritePost *.vim so $MYVIMRC
 
 " =========================
 " Global command Character
 " =========================
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+
 nmap ç :
 nnoremap ; :
 tnoremap <Esc> <C-\><C-n>
@@ -123,7 +126,6 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-o> :bnext<CR>
 nnoremap <A-i> :bprevious<CR>
-nnoremap <leader>bda :bufdo bd
 nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
 nnoremap <leader>rcr :so $MYVIMRC<CR>
@@ -139,15 +141,6 @@ noremap <silent> <C-Up> :resize +5<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Auto close brackets in insert mode
-" inoremap
-" inoremap '' ''<left>
-" inoremap (( ()<left>
-" inoremap [[ []<left>
-" inoremap {{ {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
-" inoremap {;<CR> {<CR>};<ESC>O
-
 " ====================
 " Plugin keybidings
 " ====================
@@ -157,18 +150,18 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd2 :diffget //2<CR>
 nnoremap <leader>gd3 :diffget //3<CR>
 
-" =========================
-" Plugin Configurations
-" =========================
-" Airline
-" let g:airline_section_c = '%t'
-" let g:airline_section_x = ''
-" let g:airline_section_y = ''
-" let g:airline_section_z = ''
-
-
-" =========================
-" Sourcing External Files
-" =========================
-" runtime 'coc-config.vim'
-
+" WhichKey
+"
+" " Define prefix dictionary - empty so we can add as needed
+" let g:which_key_map = {}
+" call which_key#register('<Space>', 'g:which_key_map')
+" 
+" " Second level dict
+" let g:which_key_map.t = { 'name': '+telescope' }
+" let g:which_key_map.l = { 'name': '+lsp' }
+" let g:which_key_map.g = { 'name': '+git' }
+" 
+" 
+" nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>

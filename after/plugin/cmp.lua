@@ -1,10 +1,5 @@
--- vim options needed for CMP
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append "c"
-
--- Check if plugin is available to avoid init errors
-local status_ok, cmp = pcall(require, "cmp")
-if not status_ok then
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
   return
 end
 
@@ -14,7 +9,11 @@ if not snip_status_ok then
 end
 
 require("luasnip/loaders/from_vscode").lazy_load()
-local cmpOptions = {
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.shortmess:append "c"
+
+cmp.setup({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
@@ -26,6 +25,7 @@ local cmpOptions = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<Tab>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ['<C-e>'] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
@@ -34,6 +34,7 @@ local cmpOptions = {
     -- Set `select` to `false` to only confirm explicitly selected items.
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
+
   formatting = {
     fields = { "abbr", "menu" },
     format = function(entry, vim_item)
@@ -47,12 +48,12 @@ local cmpOptions = {
       return vim_item
     end
   },
+
   sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'buffer' },
       { name = 'path' },
     })
-}
+})
 
-cmp.setup(cmpOptions)

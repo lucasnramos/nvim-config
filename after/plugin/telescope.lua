@@ -1,15 +1,9 @@
-local actions = require("telescope.actions")
-local builtin = require("telescope.builtin")
+local status_ok = pcall(require, "telescope")
+if not status_ok then
+  return
+end
 
--- testing keymaps
-vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope find_files<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tp', ':Telescope buffers<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tb', ':Telescope builtin<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tl', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>th', ':Telescope help_tags<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tff', ':Telescope git_files<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tfs', ':Telescope lsp_document_symbols<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tfws', ':Telescope lsp_workspace_symbols<CR>', { noremap = true, silent = true })
+local actions = require("telescope.actions")
 
 require("telescope").setup {
   defaults = {
@@ -37,13 +31,6 @@ require("telescope").setup {
       }
     }
   },
-  extensions = {
-    fzy_native = {
-      override_generic_sorter = false,  -- override the generic sorter
-      override_file_sorter = false,     -- override the file sorter
-    }
-  }
+  extensions = {}
 }
-
-require('telescope').load_extension('fzy_native')
 

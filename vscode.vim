@@ -6,11 +6,7 @@ autocmd InsertEnter * norm zz
 :vnoremap ; :
 vnoremap > >gv
 vnoremap < <gv
-nnoremap <C-h> <Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>
-nnoremap <C-l> <Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>
-xnoremap <C-h> <Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>
-xnoremap <C-l> <Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>
-nnoremap <space>l <Cmd>call VSCodeNotify('whichkey.show')<CR>
 nnoremap <C-b> <Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>
+nnoremap <C-j> <Cmd>call VSCodeNotify('workbench.action.togglePanel')<CR>
 nnoremap gd <cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>
 nnoremap gr <cmd>call VSCodeNotify('editor.action.goToReferences')<CR>

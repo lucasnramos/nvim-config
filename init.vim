@@ -150,18 +150,20 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd2 :diffget //2<CR>
 nnoremap <leader>gd3 :diffget //3<CR>
 
+" vim-commentary
+nnoremap <leader>c :Commentary<CR>
+vnoremap <leader>c :Commentary<CR>
+
 " WhichKey
-"
-" " Define prefix dictionary - empty so we can add as needed
-" let g:which_key_map = {}
-" call which_key#register('<Space>', 'g:which_key_map')
-" 
-" " Second level dict
-" let g:which_key_map.t = { 'name': '+telescope' }
-" let g:which_key_map.l = { 'name': '+lsp' }
-" let g:which_key_map.g = { 'name': '+git' }
-" 
-" 
-" nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
-" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-" nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>
+ " Define prefix dictionary - empty so we can add as needed
+ let g:which_key_map = {}
+ call which_key#register('<Space>', 'g:which_key_map')
+ 
+ " Second level dict
+ let g:which_key_map.t = { 'name': '+telescope' }
+ let g:which_key_map.l = { 'name': '+lsp' }
+ let g:which_key_map.g = { 'name': '+git' }
+ 
+ nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
+ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+ nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>

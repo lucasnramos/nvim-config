@@ -17,41 +17,22 @@ Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'drewtempelmeyer/palenight.vim'
 
-if has("nvim")
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-telescope/telescope-fzy-native.nvim'
-  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'liuchengxu/vim-which-key'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'liuchengxu/vim-which-key'
 
-  " LSP
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/nvim-lsp-installer'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'saadparwaiz1/cmp_luasnip'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'folke/lsp-colors.nvim'
-  Plug 'L3MON4D3/LuaSnip'
-  Plug 'rafamadriz/friendly-snippets'
-
-  " post install (yarn install | npm install) then load plugin only for editing supported files
-  Plug 'prettier/vim-prettier', {
-        \ 'do': 'yarn install --frozen-lockfile --production',
-        \ 'for': ['javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'svelte', 'yaml', 'html'] }
-else
-  Plug 'neoclide/coc.nvim'
-endif
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 set background=dark
-colo codedark
+colo palenight
 
 " Initial sets
 filetype indent plugin on
@@ -72,7 +53,7 @@ set noerrorbells
 set nohlsearch
 set noswapfile
 " set notimeout ttimeout 
-set timeoutlen=200
+set timeoutlen=400
 set nowrap
 set nowritebackup
 set number
@@ -128,8 +109,6 @@ nnoremap <A-i> :bprevious<CR>
 nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
 nnoremap <leader>rcr :so $MYVIMRC<CR>
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bf :bprev<CR>
 noremap <silent> <C-Down> :resize -5<CR>
 noremap <silent> <C-Left> :vertical resize +5<CR>
 noremap <silent> <C-Right> :vertical resize -5<CR>
@@ -146,8 +125,8 @@ vnoremap > >gv
 " fugitive
 nnoremap <leader>gg :G<space>
 nnoremap <leader>gs :G<CR>
-nnoremap <leader>gd2 :diffget //2<CR>
-nnoremap <leader>gd3 :diffget //3<CR>
+nnoremap <leader>gdo :diffget //2<CR>
+nnoremap <leader>gdt :diffget //3<CR>
 
 " WhichKey
 
@@ -158,7 +137,11 @@ call which_key#register('<Space>', 'g:which_key_map')
 " Second level dict
 let g:which_key_map.t = { 'name': '+telescope' }
 let g:which_key_map.l = { 'name': '+lsp' }
+let g:which_key_map.l.g = { 'name': '+goto' }
 let g:which_key_map.g = { 'name': '+git' }
+let g:which_key_map.g.d = { 'name': '+diff' }
+let g:which_key_map.b = { 'name': '+buffer' }
+let g:which_key_map.w = { 'name': '+window' }
 
 
 nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
@@ -172,6 +155,7 @@ nnoremap <silent> <leader>tf  :Telescope git_files<CR>
 nnoremap <silent> <leader>tg  :Telescope git_files<CR>
 nnoremap <silent> <leader>ts  :Telescope lsp_document_symbols<CR>
 nnoremap <silent> <leader>tws :Telescope lsp_workspace_symbols<CR>
+nnoremap <silent> <leader>td  :Telescope diagnostics<CR>
 nnoremap <silent> <leader>th  :Telescope help_tags<CR>
 nnoremap <silent> <leader>tl  :Telescope live_grep<CR>
 nnoremap <silent> <leader>tb  :Telescope buffers<CR>
@@ -179,24 +163,26 @@ nnoremap <silent> <leader>tb  :Telescope buffers<CR>
 " LSP
 nnoremap <silent> <C-k> :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>lD :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <leader>lca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>lcf :lua vim.lsp.buf.formatting_sync()<CR>
-nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> <leader>lq :lua vim.diagnostic.setloclist()<CR>
-nnoremap <silent> <leader>lrn :lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>lwa :lua vim.lsp.buf.add_workspace_folder()<CR>
-nnoremap <silent> <leader>lwl :lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-nnoremap <silent> <leader>lwr :lua vim.lsp.buf.remove_workspace_folder()<CR>
 nnoremap <silent> <leader>lK :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>lc :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> <leader>lf :lua vim.lsp.buf.formatting_sync()<CR>
 nnoremap <silent> <leader>lgD :lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>lgd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>lgi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <leader>lgr :lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>lq :lua vim.diagnostic.setloclist()<CR>
+nnoremap <silent> <leader>lr :lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>lr :lua vim.lsp.buf.document<CR>
+
+" Definitions and declarations without leader
+nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
 
 " Nvim Tree
-nnoremap <leader>ee :NvimTreeToggle<CR>
+nnoremap <silent> <leader>e :NvimTreeToggle<CR>
 
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>

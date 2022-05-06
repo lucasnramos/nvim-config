@@ -17,31 +17,31 @@ Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'drewtempelmeyer/palenight.vim'
 
-" Nvim specific
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'liuchengxu/vim-which-key'
+if !has("nvim")
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'liuchengxu/vim-which-key'
 
-" LSP
-"Plug 'neovim/nvim-lspconfig'
-"Plug 'williamboman/nvim-lsp-installer'
-"Plug 'hrsh7th/cmp-nvim-lsp'
-"Plug 'hrsh7th/cmp-buffer'
-"Plug 'hrsh7th/cmp-path'
-"Plug 'hrsh7th/cmp-cmdline'
-"Plug 'hrsh7th/nvim-cmp'
-"Plug 'saadparwaiz1/cmp_luasnip'
-"Plug 'L3MON4D3/LuaSnip'
-"Plug 'folke/lsp-colors.nvim'
-"Plug 'rafamadriz/friendly-snippets'
-
-" COC
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+  " LSP
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'L3MON4D3/LuaSnip'
+  " Plug 'folke/lsp-colors.nvim'
+  " Plug 'rafamadriz/friendly-snippets'
+else
+  Plug 'neoclide/coc.nvim'
+endif
 call plug#end()
 
 set background=dark
@@ -153,7 +153,7 @@ call which_key#register('<Space>', 'g:which_key_map')
 let g:which_key_map.t = { 'name': '+telescope' }
 let g:which_key_map.l = { 'name': '+lsp' }
 let g:which_key_map.g = { 'name': '+git' }
-let g:which_key_map.c = { 'name': '+COC' }
+
 
 nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
@@ -170,10 +170,29 @@ nnoremap <silent> <leader>th  :Telescope help_tags<CR>
 nnoremap <silent> <leader>tl  :Telescope live_grep<CR>
 nnoremap <silent> <leader>tb  :Telescope buffers<CR>
 
-" Nvim Tree
-nnoremap <leader>e :NvimTreeToggle<CR>
+" LSP
+nnoremap <silent> <C-k> :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <leader>lD :lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> <leader>lca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>lcf :lua vim.lsp.buf.formatting_sync()<CR>
+nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> <leader>lq :lua vim.diagnostic.setloclist()<CR>
+nnoremap <silent> <leader>lrn :lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>lwa :lua vim.lsp.buf.add_workspace_folder()<CR>
+nnoremap <silent> <leader>lwl :lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+nnoremap <silent> <leader>lwr :lua vim.lsp.buf.remove_workspace_folder()<CR>
+nnoremap <silent> <leader>lK :lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>lgD :lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <leader>lgd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>lgi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>lgr :lua vim.lsp.buf.references()<CR>
 
-" Commentary
-nnoremap <silent> <leader>C  :Commentary<CR>
-xnoremap <silent> <leader>C  :Commentary<CR>
-vnoremap <silent> <leader>C  :Commentary<CR>
+" Nvim Tree
+nnoremap <leader>ee :NvimTreeToggle<CR>
+
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+" Conflict Marker

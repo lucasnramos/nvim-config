@@ -1,38 +1,9 @@
 " List of plugins vim-plug
 call plug#begin()
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'mattn/emmet-vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'jiangmiao/auto-pairs'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'rhysd/conflict-marker.vim'
-
-" Themes
-Plug 'dracula/vim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'tomasiser/vim-code-dark'
-Plug 'joshdick/onedark.vim'
-Plug 'lifepillar/vim-solarized8'
-Plug 'drewtempelmeyer/palenight.vim'
-
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'liuchengxu/vim-which-key'
-
-" LSP
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"  Plug 'editorconfig/editorconfig-vim'
+"  Plug 'rhysd/conflict-marker.vim'
 call plug#end()
-
-set background=dark
-colo palenight
 
 " Initial sets
 filetype indent plugin on
@@ -128,8 +99,15 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gdo :diffget //2<CR>
 nnoremap <leader>gdt :diffget //3<CR>
 
-" WhichKey
+" vscode-neovim
+nnoremap <M-h> <Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>
+xnoremap <M-h> <Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>
+nnoremap <space>l <Cmd>call VSCodeNotify('whichkey.show')<CR>
+nnoremap <C-b> <Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>
+nnoremap gd <cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>
+nnoremap gr <cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
 
+" WhichKey
 " Define prefix dictionary - empty so we can add as needed
 let g:which_key_map = {}
 call which_key#register('<Space>', 'g:which_key_map')
@@ -143,46 +121,6 @@ let g:which_key_map.g.d = { 'name': '+diff' }
 let g:which_key_map.b = { 'name': '+buffer' }
 let g:which_key_map.w = { 'name': '+window' }
 
-
 nnoremap <silent> <leader>      :<c-u>WhichKey  '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>
-
-" Telescope
-nnoremap <silent> <C-p>       :Telescope git_files<CR>
-nnoremap <silent> <leader>tp  :Telescope builtin<CR>
-nnoremap <silent> <leader>tf  :Telescope git_files<CR>
-nnoremap <silent> <leader>tg  :Telescope git_files<CR>
-nnoremap <silent> <leader>ts  :Telescope lsp_document_symbols<CR>
-nnoremap <silent> <leader>tws :Telescope lsp_workspace_symbols<CR>
-nnoremap <silent> <leader>td  :Telescope diagnostics<CR>
-nnoremap <silent> <leader>th  :Telescope help_tags<CR>
-nnoremap <silent> <leader>tl  :Telescope live_grep<CR>
-nnoremap <silent> <leader>tb  :Telescope buffers<CR>
-
-" LSP
-nnoremap <silent> <C-k> :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <leader>lD :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <leader>lK :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>lc :lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> <leader>lf :lua vim.lsp.buf.formatting_sync()<CR>
-nnoremap <silent> <leader>lgD :lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>lgd :lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <leader>lgi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <leader>lgr :lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>lq :lua vim.diagnostic.setloclist()<CR>
-nnoremap <silent> <leader>lr :lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>lr :lua vim.lsp.buf.document<CR>
-
-" Definitions and declarations without leader
-nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
-
-" Nvim Tree
-nnoremap <silent> <leader>e :NvimTreeToggle<CR>
-

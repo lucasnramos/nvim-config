@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
 Plug 'mattn/emmet-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
@@ -28,7 +29,16 @@ Plug 'liuchengxu/vim-which-key'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'MunifTanjim/eslint.nvim'
 call plug#end()
 
 set background=dark
@@ -149,9 +159,9 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 nnoremap <silent> <BS>          :WhichKey       '\<BS\>'<CR>
 
 " Telescope
-nnoremap <silent> <C-p>       :Telescope git_files<CR>
+nnoremap <silent> <C-p>       :Telescope find_files<CR>
 nnoremap <silent> <leader>tp  :Telescope builtin<CR>
-nnoremap <silent> <leader>tf  :Telescope git_files<CR>
+nnoremap <silent> <leader>tf  :Telescope find_files<CR>
 nnoremap <silent> <leader>tg  :Telescope git_files<CR>
 nnoremap <silent> <leader>ts  :Telescope lsp_document_symbols<CR>
 nnoremap <silent> <leader>tws :Telescope lsp_workspace_symbols<CR>
@@ -168,7 +178,7 @@ nnoremap <silent> <leader>lc :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> <leader>lf :lua vim.lsp.buf.formatting_sync()<CR>
+nnoremap <silent> <leader>lf :lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>lgD :lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>lgd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>lgi :lua vim.lsp.buf.implementation()<CR>

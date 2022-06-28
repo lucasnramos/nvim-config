@@ -9,6 +9,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rhysd/conflict-marker.vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 " Themes
 Plug 'dracula/vim'
@@ -173,7 +176,7 @@ nnoremap <silent> <leader>tb  :Telescope buffers<CR>
 " LSP
 nnoremap <silent> <C-k> :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>lD :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <leader>lK :lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>lh :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>lc :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
@@ -185,7 +188,6 @@ nnoremap <silent> <leader>lgi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <leader>lgr :lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>lq :lua vim.diagnostic.setloclist()<CR>
 nnoremap <silent> <leader>lr :lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>lr :lua vim.lsp.buf.document<CR>
 
 " Definitions and declarations without leader
 nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>

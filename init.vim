@@ -5,13 +5,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'mattn/emmet-vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rhysd/conflict-marker.vim'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install --frozen-lockfile --production',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 " Themes
 Plug 'dracula/vim'
@@ -20,6 +17,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'tomasr/molokai'
+Plug 'doums/darcula'
+Plug 'bluz71/vim-nightfly-guicolors'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -29,6 +29,8 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'liuchengxu/vim-which-key'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -42,10 +44,12 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'MunifTanjim/eslint.nvim'
+Plug 'MunifTanjim/prettier.nvim'
 call plug#end()
 
+set termguicolors
 set background=dark
-colo palenight
+colo nightfly
 
 " Initial sets
 filetype indent plugin on
@@ -66,7 +70,7 @@ set noerrorbells
 set nohlsearch
 set noswapfile
 " set notimeout ttimeout 
-set timeoutlen=400
+set timeoutlen=200
 set nowrap
 set nowritebackup
 set number
@@ -80,13 +84,13 @@ set smartcase
 set softtabstop=2
 set splitbelow splitright
 set t_vb=
-set termguicolors
-set updatetime=300
+set updatetime=500
 set visualbell
 set wildmenu
 
 autocmd InsertEnter * norm zz
 autocmd BufWritePost *.vim so $MYVIMRC
+autocmd BufWrite *.js,*.jsx,*.ts,*.tsx :Prettier
 
 " =========================
 " Global command Character
@@ -113,13 +117,14 @@ inoremap <A-l> <right>
 " ====================
 " Normal Mode Remaps
 " ====================
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-o> :bnext<CR>
 nnoremap <A-i> :bprevious<CR>
-nnoremap <leader>pwr :tabnew term://powershell<CR>
 nnoremap <leader>rco :tabnew $MYVIMRC<CR>
 nnoremap <leader>rcr :so $MYVIMRC<CR>
 noremap <silent> <C-Down> :resize -5<CR>
@@ -141,6 +146,9 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gdo :diffget //2<CR>
 nnoremap <leader>gdt :diffget //3<CR>
 
+" Commentary
+nnoremap <leader>c <cmd>Commentary<CR>
+
 " WhichKey
 
 " Define prefix dictionary - empty so we can add as needed
@@ -149,6 +157,7 @@ call which_key#register('<Space>', 'g:which_key_map')
 
 " Second level dict
 let g:which_key_map.t = { 'name': '+telescope' }
+let g:which_key_map.c = { 'name': 'Commentary' }
 let g:which_key_map.l = { 'name': '+lsp' }
 let g:which_key_map.l.g = { 'name': '+goto' }
 let g:which_key_map.g = { 'name': '+git' }
@@ -177,7 +186,7 @@ nnoremap <silent> <leader>tb  :Telescope buffers<CR>
 nnoremap <silent> <C-k> :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>lD :lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> <leader>lh :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>lc :lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>la :lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>ldn :lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>ldp :lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> <leader>le :lua vim.diagnostic.open_float()<CR>
@@ -198,3 +207,5 @@ nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
 " Nvim Tree
 nnoremap <silent> <leader>e :NvimTreeToggle<CR>
 
+" Prettier
+nnoremap <silent> <leader>P :Prettier<CR>

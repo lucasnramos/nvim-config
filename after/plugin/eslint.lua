@@ -8,7 +8,12 @@ if not eslint_ok then
   return
 end
 
-null_ls.setup()
+null_ls.setup({
+    on_attach = function (client)
+      print("null-ls inside eslint")
+      print(client)
+    end
+  })
 
 eslint.setup({
   bin = 'eslint', -- or `eslint_d`

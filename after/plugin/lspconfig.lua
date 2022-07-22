@@ -7,7 +7,13 @@ end
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
-    local opts = {}
+    local opts = {
+        on_attach = function ()
+            -- vim.keymap.set only for 0.7+
+            -- Set "K" to show lsp hover, if we attached to an Language Server
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+        end
+    }
 
     -- (optional) Customize the options passed to the server
     -- if server.name == "tsserver" then

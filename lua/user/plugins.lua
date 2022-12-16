@@ -56,16 +56,16 @@ return packer.startup(function(use)
 
 
   -- Vim compat
-  use { "tpope/vim-surround", commit = "bf3480dc9ae7bea34c78fbba4c65b4548b5b1fea" }
   use { "tpope/vim-fugitive", commit = "96c1009fcf8ce60161cc938d149dd5a66d570756" }
+  use { "tpope/vim-surround", commit = "bf3480dc9ae7bea34c78fbba4c65b4548b5b1fea" }
   use { "mattn/emmet-vim", commit = "def5d57a1ae5afb1b96ebe83c4652d1c03640f4d" }
 
 
   -- Colorschemes
-  use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
-  use { "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" }
-  use { "bluz71/vim-nightfly-guicolors" }
+  use { "folke/tokyonight.nvim" }
+  use { "lunarvim/darkplus.nvim" }
   use { "doums/darcula" }
+  use { "bluz71/vim-nightfly-guicolors" }
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp", commit = "df6734aa018d6feb4d76ba6bda94b1aeac2b378a" } -- The completion plugin
@@ -95,7 +95,6 @@ return packer.startup(function(use)
   }
 
   -- Git
-  use { "lewis6991/gitsigns.nvim", commit = "c18e016864c92ecf9775abea1baaa161c28082c3" }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

@@ -64,6 +64,9 @@ keymap("i", "<A-k>", "<Up>")
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+
 
 -- Command line
 -- Navigate with hjkl

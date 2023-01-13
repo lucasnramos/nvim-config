@@ -46,6 +46,7 @@ require('packer').startup(function(use)
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
+  use 'tpope/vim-surround'
   use 'lewis6991/gitsigns.nvim'
 
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
@@ -57,8 +58,12 @@ require('packer').startup(function(use)
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
+
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   -- Works not on Windows use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+  -- Other plugins
+  use 'akinsho/bufferline.nvim'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -154,6 +159,43 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Remap column and semicolon
 vim.keymap.set({ 'n', 'v', 'x' }, ';', ':')
 vim.keymap.set({ 'n', 'v', 'x' }, ':', ';')
+vim.keymap.set({ 'n', 'v', 'x' }, 'ç', ':')
+
+-- Navigate buffers
+vim.keymap.set("n", "<S-l>", ":bnext<CR>", { silent = true })
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { silent = true })
+
+-- Close buffer
+vim.keymap.set("n", "<S-q>", "<cmd>bdelete!<CR>", { silent = true })
+
+-- Git
+vim.keymap.set('n', '<leader>gs', ':Git<CR>')
+vim.keymap.set('n', '<leader>gg', ':Git<space>')
+
+-- Insert --
+-- Press jk fast to enter normal mode
+vim.keymap.set("i", "jk", "<ESC>")
+-- Navigate with hjkl in insert mode
+vim.keymap.set("i", "<A-h>", "<Left>")
+vim.keymap.set("i", "<A-l>", "<Right>")
+vim.keymap.set("i", "<A-j>", "<Down>")
+vim.keymap.set("i", "<A-k>", "<Up>")
+
+-- Visual --
+-- Stay in indent mode
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+-- Move lines up/down
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
+
+
+-- Command line
+-- Navigate with hjkl
+vim.keymap.set("c", "<A-h>", "<Left>")
+vim.keymap.set("c", "<A-l>", "<Right>")
+vim.keymap.set("c", "<A-j>", "<Down>")
+vim.keymap.set("c", "<A-k>", "<Up>")
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
@@ -427,6 +469,17 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
+}
+
+-- bufferline
+--
+require('bufferline').setup {
+  options = {
+    close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+    right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+    offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+    separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
+  }
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`

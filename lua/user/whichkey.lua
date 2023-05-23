@@ -20,4 +20,5 @@ wk.register({
   e = { ":NvimTreeToggle<CR>", "File Explorer" },
   ["/"] = "Toggle Comment",
 }, { prefix = "<leader>" })
-wk.setup{}
+
+wk.setup()

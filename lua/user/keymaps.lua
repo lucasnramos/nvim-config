@@ -19,12 +19,9 @@ vim.g.mapleader = " "
 
 -- Normal --
 -- Change command line keymap
-keymap("n", ";", ":")
-keymap("v", ";", ":")
-keymap("x", ";", ":")
-keymap("n", "ç", ":")
-keymap("v", "ç", ":")
-keymap("x", "ç", ":")
+keymap({ "n", "v","x" }, ";", ":")
+keymap({ "n", "v","x" }, ":", ";")
+keymap({ "n", "v","x" }, "ç", ":")
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)

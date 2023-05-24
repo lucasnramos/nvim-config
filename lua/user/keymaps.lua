@@ -75,7 +75,9 @@ keymap("c", "<A-k>", "<Up>")
 -- Plugins --
 
 -- Telescope
-keymap("n", "<C-p>", ":Telescope find_files<CR>", opts)
+keymap({ "n", "v" }, "<C-p>", ":Telescope find_files<CR>", opts)
+keymap({ "n", "v" }, "<leader>ff", ":Telescope find_files<CR>", opts)
+keymap("n", "<leader>fa", ":Telescope builtin<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", opts)

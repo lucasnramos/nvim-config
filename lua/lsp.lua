@@ -6,7 +6,9 @@ if (not lspconfig_ok or not mason_ok or not mason_lsp_ok) then return end
 
 mason.setup()
 mason_lsp.setup()
+require('neodev').setup {}
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- setup Language Servers
 lspconfig.lua_ls.setup {
@@ -23,6 +25,10 @@ lspconfig.lua_ls.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      completion = {
+        callSnippet = 'Replace'
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -30,5 +36,12 @@ lspconfig.lua_ls.setup {
       },
     },
   },
+}
+
+lspconfig.tsserver.setup {
+    capabilities = capabilities,
+    on_attach = function (client, bufnr)
+
+    end
 }
 

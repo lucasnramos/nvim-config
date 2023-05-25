@@ -78,8 +78,7 @@ return packer.startup(function(use)
   -- LSP
   use { "neovim/nvim-lspconfig" } -- enable LSP
   use { "williamboman/mason.nvim" } -- simple to use language server installer
-  use { "williamboman/mason-lspconfig.nvim" } -- extension that integrates Mason with builtint LSP Config
-  use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
+  -- use { "williamboman/mason-lspconfig.nvim" } -- extension that integrates Mason with builtint LSP Config
 
   -- Telescope
   use { "nvim-telescope/telescope.nvim" }

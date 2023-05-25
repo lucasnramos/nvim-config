@@ -49,7 +49,7 @@ return packer.startup(function(use)
   use { "akinsho/bufferline.nvim" } -- Show editors as tabs and allow better navigation
   use { "nvim-lualine/lualine.nvim" } -- statusbar
   use { "akinsho/toggleterm.nvim" } -- Terminal window
-  use { "lewis6991/impatient.nvim" }
+  -- use { "lewis6991/impatient.nvim" } -- on nvim 0.9 set option vim.loader.enable() instead
   use { "folke/which-key.nvim" }
   use { 'nvim-tree/nvim-tree.lua' }
   use { "norcalli/nvim-colorizer.lua" }
@@ -70,15 +70,10 @@ return packer.startup(function(use)
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin
-  use { "hrsh7th/cmp-buffer" } -- buffer completions
-  use { "hrsh7th/cmp-path" } -- path completions
-  use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
-  use { "hrsh7th/cmp-nvim-lsp" }
-  use { "hrsh7th/cmp-nvim-lua" }
 
   -- snippets
-  use { "L3MON4D3/LuaSnip" } --snippet engine
-  use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
+  -- use { "L3MON4D3/LuaSnip" } --snippet engine
+  -- use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
 
   -- LSP
   use { "neovim/nvim-lspconfig" } -- enable LSP

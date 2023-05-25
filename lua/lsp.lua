@@ -12,6 +12,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- setup Language Servers
 lspconfig.lua_ls.setup {
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -40,8 +41,5 @@ lspconfig.lua_ls.setup {
 
 lspconfig.tsserver.setup {
     capabilities = capabilities,
-    on_attach = function (client, bufnr)
-
-    end
 }
 

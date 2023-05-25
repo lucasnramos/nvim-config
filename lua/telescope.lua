@@ -1,9 +1,9 @@
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
-  return
+	return
 end
 
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
 -- default mappings
 --
@@ -28,22 +28,23 @@ local actions = require "telescope.actions"
 -- <C-q>	Send all items not filtered to quickfixlist (qflist)
 -- <M-q>	Send all selected items to qflist
 
-telescope.setup {
-  defaults = {
+telescope.setup({
+	defaults = {
+		layout_strategy = "vertical",
+		layout_config = { height = 0.95 },
 
-    prompt_prefix = " ",
-    selection_caret = " ",
-    path_display = { "smart" },
-    file_ignore_patterns = { ".git/", "node_modules" },
+		prompt_prefix = " ",
+		selection_caret = " ",
+		path_display = { "smart" },
+		file_ignore_patterns = { ".git/", "node_modules" },
 
-    mappings = {
-      i = {
-        ["<Down>"] = actions.cycle_history_next,
-        ["<Up>"] = actions.cycle_history_prev,
-        ["<C-j>"] = actions.cycle_history_prev,
-        ["<C-k>"] = actions.cycle_history_next,
-      },
-    },
-  },
-}
-
+		mappings = {
+			i = {
+				["<Down>"] = actions.cycle_history_next,
+				["<Up>"] = actions.cycle_history_prev,
+				["<C-j>"] = actions.cycle_history_prev,
+				["<C-k>"] = actions.cycle_history_next,
+			},
+		},
+	},
+})

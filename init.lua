@@ -177,6 +177,11 @@ require('lazy').setup({
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
+  -- automatically close pairs like quotes, parentesis etc.
+  { "windwp/nvim-autopairs" },
+
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
@@ -198,6 +203,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -222,6 +228,9 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+
+-- Show line numbers relative to cursor
+vim.o.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -255,7 +264,11 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- start scrolling before the cursor hits the last line
 vim.o.scrolloff = 6
+
+-- Need to look into but it should replace nvim-impatient on version >= 0.9
+vim.loader.enable()
 
 -- [[ Basic Keymaps ]]
 
@@ -389,6 +402,11 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- other keymaps
+vim.keymap.set('n', '<S-h>', ':bprevious<CR>', { silent = true })
+vim.keymap.set('n', '<S-l>', ':bnext<CR>', { silent = true })
+vim.keymap.set('n', '<S-q>', ':bdelete!<CR>')
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -526,6 +544,10 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+require("nvim-autopairs").setup {}
+
+require("bufferline").setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

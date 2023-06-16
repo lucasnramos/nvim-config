@@ -84,7 +84,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', branch = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -178,9 +178,9 @@ require('lazy').setup({
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- automatically close pairs like quotes, parentesis etc.
-  { "windwp/nvim-autopairs" },
+  { "windwp/nvim-autopairs", opts = {} },
 
-  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons', opts = {}},
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -204,6 +204,10 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  -- Plugins for null-ls
+  {"jose-elias-alvarez/null-ls.nvim"},
+  { 'MunifTanjim/prettier.nvim' },
+  {'MunifTanjim/eslint.nvim'}
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -476,10 +480,85 @@ local servers = {
 -- Setup neovim lua configuration
 require('neodev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+-- [[ Configure null-ls ]]
+-- local null_ls = require('null-ls')
+-- null_ls.setup({
+--   sources = {
+--     null_ls.builtins.formatting.prettier,
+--     null_ls.builtins.diagnostics.eslint
+--   }
+-- })
+local null_ls = require("null-ls")
 
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
+-- [[ from Prettier github page ]]
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
+})
+
+require('eslint').setup({
+  bin = 'eslint', -- or `eslint_d`
+  code_actions = {
+    enable = true,
+    apply_on_save = {
+      enable = true,
+      types = { "directive", "problem", "suggestion", "layout" },
+    },
+    disable_rule_comment = {
+      enable = true,
+      location = "separate_line", -- or `same_line`
+    },
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "type", -- or `save`
+  },
+})
+
+require('prettier').setup({
+  bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -545,9 +624,9 @@ cmp.setup {
   },
 }
 
-require("nvim-autopairs").setup {}
+-- require("nvim-autopairs").setup {}
 
-require("bufferline").setup {}
+-- require("bufferline").setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

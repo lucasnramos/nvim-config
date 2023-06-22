@@ -4,6 +4,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Need to look into but it should replace nvim-impatient on version >= 0.9
+-- adding before plugin calls might improve startup performance
+vim.loader.enable()
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -207,8 +211,6 @@ vim.o.termguicolors = true
 -- start scrolling before the cursor hits the last line
 vim.o.scrolloff = 6
 
--- Need to look into but it should replace nvim-impatient on version >= 0.9
-vim.loader.enable()
 
 -- [[ Basic Keymaps ]]
 

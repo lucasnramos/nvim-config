@@ -1,6 +1,7 @@
+require "plugins"
 require "options"
 require "keymaps"
-require "plugins"
+require "whichkey"
 require "autocommands"
 require "comment"
 require "autopairs"

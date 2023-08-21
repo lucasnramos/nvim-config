@@ -54,7 +54,10 @@ return packer.startup(function(use)
 	use({ "bluz71/vim-nightfly-guicolors" })
 
 	-- Telescope
-	-- use({ "nvim-telescope/telescope.nvim" })
+  -- use {
+  --   'nvim-telescope/telescope.nvim', tag = '0.1.2',
+  --   requires = { {'nvim-lua/plenary.nvim'} }
+  -- }
 
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter" })

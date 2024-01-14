@@ -81,4 +81,3 @@ vim.keymap.set("c", "<A-h>", "<Left>")
 vim.keymap.set("c", "<A-l>", "<Right>")
 vim.keymap.set("c", "<A-j>", "<Down>")
 vim.keymap.set("c", "<A-k>", "<Up>")
-

@@ -1,9 +1,18 @@
 return {
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd[[colorscheme tokyonight]]
+    end,
+  },
   "tpope/vim-fugitive",
   "tpope/vim-surround",
   "folke/neodev.nvim",
-  "folke/which-key.nvim",
   "github/copilot.vim",
+  { "folke/which-key.nvim", opts = {} },
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -28,12 +37,11 @@ return {
     end
   },
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
+    'nvim-tree/nvim-tree.lua',
     config = function()
-      vim.cmd[[colorscheme tokyonight]]
-    end,
-  },
+      -- disable netrw at the very start of your init.lua
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end
+  }
 }

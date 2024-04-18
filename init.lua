@@ -1,4 +1,4 @@
-vim.keymap.set("", "<Space>", "<Nop>", opts)
+vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
 -- [[ install lazy vim plugin manager

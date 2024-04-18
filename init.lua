@@ -56,8 +56,9 @@ vim.opt.scrolloff = 8 -- is one of my fav
 vim.loader.enable()
 
 -- Basic remaps
-vim.keymap.set({"n", "v", "x"}, ";", ":")
-vim.keymap.set({"n", "v", "x"}, "ç", ":")
+-- vim.keymap.set({ "n", "v", "x" }, ";", ":") -> can I use the default?
+vim.keymap.set({ "n", "v", "x" }, "ç", ";")
+vim.keymap.set({ "n", "v", "x" }, "Ç", ":")
 vim.keymap.set("n", "<leader>h", "<C-w>h", opts)
 vim.keymap.set("n", "<leader>j", "<C-w>j", opts)
 vim.keymap.set("n", "<leader>k", "<C-w>k", opts)

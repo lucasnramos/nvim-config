@@ -12,7 +12,7 @@ return {
 	"tpope/vim-fugitive",
 	"tpope/vim-surround",
 	"folke/neodev.nvim",
-	"github/copilot.vim",
+	--"github/copilot.vim",
 	{ "folke/which-key.nvim", opts = {} },
 	{
 		"nvim-telescope/telescope.nvim",
@@ -23,6 +23,13 @@ return {
 				defaults = {
 					layout_strategy = "center",
 					path_display = { "truncate" },
+					layout_config = {
+						center = {
+							width = 0.9,
+							height = 0.95,
+						},
+						-- other layout configuration here
+					},
 				},
 			})
 

@@ -4,14 +4,14 @@ vim.g.mapleader = " "
 -- [[ install lazy vim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
@@ -82,3 +82,5 @@ vim.keymap.set("c", "<A-h>", "<Left>")
 vim.keymap.set("c", "<A-l>", "<Right>")
 vim.keymap.set("c", "<A-j>", "<Down>")
 vim.keymap.set("c", "<A-k>", "<Up>")
+-- copy current file name to the system clipboard
+vim.keymap.set("n", "<leader>fl", ':call setreg("+", @%)<CR>', opts)

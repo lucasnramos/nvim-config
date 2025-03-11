@@ -31,7 +31,7 @@ return {
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-          map("<leader>e", vim.diagnostic.open_float, "Hover Error")
+					map("<leader>e", vim.diagnostic.open_float, "Hover Error")
 
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client.server_capabilities.documentHighlightProvider then
@@ -87,7 +87,7 @@ return {
 	{ -- Autoformat
 		"stevearc/conform.nvim",
 		opts = {
-			notify_on_error = false,
+			notify_on_error = true,
 			format_on_save = function(bufnr)
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
@@ -106,6 +106,9 @@ return {
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
 				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				html = { { "prettierd", "prettier" } },
+				css = { { "prettierd", "prettier" } },
 			},
 		},
 	},

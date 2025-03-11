@@ -1,14 +1,14 @@
 return {
 	{
-		"morhetz/gruvbox",
+		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		opts = {},
 		config = function()
-			vim.cmd([[colorscheme gruvbox]])
+			vim.cmd([[colorscheme tokyonight-night]])
 		end,
 	},
-	"folke/tokyonight.nvim",
+	"morhetz/gruvbox",
 	"tpope/vim-fugitive",
 	"tpope/vim-surround",
 	"folke/neodev.nvim",
@@ -27,6 +27,7 @@ return {
 						center = {
 							width = 0.9,
 							height = 0.95,
+							prompt_position = "bottom",
 						},
 						-- other layout configuration here
 					},
@@ -64,14 +65,6 @@ return {
 			)
 			vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>sb", require("telescope.builtin").buffers, { desc = "[S]earch [B]uffers" })
-		end,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		config = function()
-			-- disable netrw at the very start of your init.lua
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
 		end,
 	},
 }

@@ -52,7 +52,7 @@ vim.opt.relativenumber = true
 vim.opt.numberwidth = 4 -- set number column width to 2 {default 4}
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.wrap = false -- display lines as one long line
-vim.opt.scrolloff = 8 -- is one of my fav
+vim.opt.scrolloff = 12 -- is one of my fav
 vim.loader.enable()
 
 -- Basic remaps
@@ -78,6 +78,8 @@ vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', opts)
+vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', opts)
 vim.keymap.set("c", "<A-h>", "<Left>")
 vim.keymap.set("c", "<A-l>", "<Right>")
 vim.keymap.set("c", "<A-j>", "<Down>")

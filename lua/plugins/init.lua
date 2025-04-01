@@ -21,7 +21,7 @@ return {
 		config = function()
 			require("telescope").setup({
 				defaults = {
-					layout_strategy = "center",
+					-- layout_strategy = "set",
 					path_display = { "truncate" },
 					layout_config = {
 						center = {

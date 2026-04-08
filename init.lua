@@ -16,8 +16,8 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.list = false
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.scrolloff = 10
@@ -31,17 +31,17 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-
 -- [[ Keymaps ]]
 local opts = { silent = true }
+
+vim.keymap.set({ 'n', 'v', 'x' }, 'ç', ';')
+vim.keymap.set({ 'n', 'v', 'x' }, 'Ç', ':')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>w', ':bd<CR>', { desc = 'Close current buffer' })
 vim.keymap.set('n', '<leader>h', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<leader>l', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<leader>j', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<leader>k', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
-vim.keymap.set({ 'n', 'v', 'x' }, 'ç', ';')
-vim.keymap.set({ 'n', 'v', 'x' }, 'Ç', ':')
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
 vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)

@@ -25,6 +25,8 @@ return {
 				map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
 				map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 				map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+				map('gre', vim.diagnostic.open_float, "Show Diagnostic Line")
+
 
 			end,
 		})
@@ -35,7 +37,7 @@ return {
 				filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
 			},
 			pyright = {},
-			-- ts_ls = {} -- OR https://github.com/pmizio/typescript-tools.nvim
+			ts_ls = {} -- OR https://github.com/pmizio/typescript-tools.nvim
 		}
 		local ensure_installed = vim.tbl_keys(servers or {})
 

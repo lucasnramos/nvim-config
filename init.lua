@@ -30,6 +30,7 @@ vim.o.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.opt.wrap = false
 
 -- [[ Keymaps ]]
 local opts = { silent = true }
